@@ -1,29 +1,12 @@
-# RecallDeck V3
+# RecallDeck V3 Fixed
 
-Deployable GitHub Pages PWA for flashcards.
+This fixed build intentionally exposes BOTH methods:
+- Manual Add: `＋ Add`
+- Bulk JSON Import: persistent `📥 Import JSON` button at the top and another inside Add
+- JSON Export: `📤 Export JSON`
+- JSON tab remains available too
+- Practice count: 5/10/20/50/custom/all
+- Random/sequential order
+- Spaced repetition and progress
 
-## Features
-- JSON import with preview and validation
-- Append or replace import modes
-- Duplicate protection when appending
-- JSON export/backup
-- Accepted fields: front/question/word/term/q and back/answer/meaning/definition/a
-- Practice count: 5, 10, 20, 50, custom, all due
-- Random or sequential order
-- Spaced repetition ratings
-- Search, decks, tags, important cards
-- Progress and accuracy
-- Offline/local storage
-
-## JSON example
-[
-  {
-    "front": "What is federalism?",
-    "back": "A system in which power is divided between levels of government.",
-    "deck": "Polity",
-    "tag": "Constitution",
-    "important": true
-  }
-]
-
-Upload all files to the root of a GitHub Pages repository.
+Upload ALL files in this folder to GitHub Pages root. If an older PWA is already installed, refresh the site once and, if necessary, close/reopen the installed app so the new service worker is loaded.
