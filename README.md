@@ -1,12 +1,18 @@
-# RecallDeck V3 Fixed
+RECALLDECK V3.1
 
-This fixed build intentionally exposes BOTH methods:
-- Manual Add: `＋ Add`
-- Bulk JSON Import: persistent `📥 Import JSON` button at the top and another inside Add
-- JSON Export: `📤 Export JSON`
-- JSON tab remains available too
-- Practice count: 5/10/20/50/custom/all
-- Random/sequential order
-- Spaced repetition and progress
+This build has clearly visible navigation:
+🧠 Study | 📚 Cards | ＋ Add | 📥 Import JSON | 📤 Export JSON | 📊 Progress
 
-Upload ALL files in this folder to GitHub Pages root. If an older PWA is already installed, refresh the site once and, if necessary, close/reopen the installed app so the new service worker is loaded.
+Manual cards and JSON bulk import are separate features.
+
+DEPLOY:
+1. Delete/replace the old index.html, styles.css, app.js, manifest.json and sw.js in your GitHub Pages repository.
+2. Upload these five files from this ZIP.
+3. Commit/push.
+4. Open the GitHub Pages URL in Chrome.
+5. If the old UI still appears, Chrome is showing the previously installed PWA/cache: open the URL in a normal browser tab, hard refresh, then reopen/install the PWA.
+
+JSON example:
+[
+ {"front":"What is federalism?","back":"Division of power between levels of government.","deck":"Polity","tag":"Constitution","important":true}
+]
