@@ -1,25 +1,26 @@
-RECALLDECK V4 — CACHE-SAFE BUILD
+RECALLDECK V4.1 — IMPORT FIX
 
-WHY V4:
-The screenshot showing only Study/Cards/Add/Progress means the browser is serving the OLD app, not the new code. This version intentionally removes service-worker registration and includes reset.html to unregister old workers and clear caches.
+The screenshot showed:
+Found 223 items. Valid flashcards: 0.
+The old importer only accepted a narrow front/back schema, so it silently had nothing to import.
+
+V4.1 accepts:
+- front/back
+- question/answer
+- q/a
+- word/meaning
+- term/definition
+- prompt/response
+- concept/explanation
+- English/Marathi/Hindi vocabulary objects
+- nested cards/flashcards
+- top-level cards, flashcards, questions, items, data, words, vocabulary, bank arrays
+- simple two-field objects as a fallback
 
 DEPLOY:
-1. Extract this ZIP.
-2. Replace the files in your GitHub Pages repository with ALL files from this folder.
-3. Commit/push and wait for GitHub Pages to deploy.
-4. IMPORTANT: open:
-   https://YOURUSERNAME.github.io/YOURREPO/reset.html
-   using the same URL/path as your app.
-5. It will unregister old service workers and clear browser caches WITHOUT deleting your flashcards from localStorage.
-6. It redirects to the new app.
-7. You should now see:
-   Study | Cards | + Add | IMPORT JSON | EXPORT JSON | Progress
+Replace ALL files with this ZIP in the GitHub Pages repository.
+Then open reset.html once to remove the old service worker/cache.
+Open the site directly in Chrome and verify V4.1 is shown.
 
-If the PWA icon still opens the old screen, remove the old installed PWA shortcut and open the website once in Chrome after the reset. Then install the new PWA.
-
-JSON:
-[
-  {"front":"What is federalism?","back":"Division of power between levels of government.","deck":"Polity","tag":"Constitution","important":true}
-]
-
-Manual adding and JSON bulk import are both supported.
+IMPORTANT:
+The importer never uploads the JSON to a server. It reads the selected file locally in the browser.
