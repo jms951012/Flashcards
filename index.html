@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#111827">
-<link rel="manifest" href="manifest.json?v=4.1">
-<link rel="stylesheet" href="styles.css?v=4.1">
-<title>RecallDeck V4.1</title>
+<link rel="manifest" href="manifest.json?v=4.2">
+<link rel="stylesheet" href="styles.css?v=4.2">
+<title>RecallDeck V4.2</title>
 </head>
 <body>
 <main>
@@ -40,18 +40,12 @@
 <div id="sessionInfo" class="sessionInfo hidden"><b id="sessionPos">0 / 0</b><span id="sessionMode"></span></div>
 <div id="empty" class="empty hidden"><h2>No cards are due 🎉</h2><button id="goAdd" class="primary">Create a card</button></div>
 <div id="studyArea">
-<div class="meta"><span id="tag">CARD</span><span id="count"></span></div>
-<div id="flash" class="flash"><div id="front"></div><div id="back" class="hidden"></div><small id="hint">Tap to reveal</small></div>
-<div id="ratings" class="ratings hidden">
-<button data-r="again">Again<small>10 min</small></button>
-<button data-r="hard">Hard<small>1 day</small></button>
-<button data-r="good">Good<small>3 days</small></button>
-<button data-r="easy">Easy<small>7 days</small></button>
-</div>
+<div class="sessionHeader"><span id="sessionPos">0 / 0</span><span id="sessionMode"></span></div>
+<div class="flash vocabFlash"><div id="front" class="word"></div><div id="back" class="meaning hidden"></div></div>
+<div class="cardNav"><button id="prevCard">← Previous</button><button id="nextCard" class="primary">Next →</button></div>
 </div>
 </section>
-
-<section id="cards" class="page hidden">
+<section id="cards"<section id="cards" class="page hidden">
 <div class="head"><h2>My Cards</h2><input id="search" placeholder="Search cards"></div>
 <div id="list"></div><p id="none" class="empty">No cards yet.</p>
 </section>
@@ -99,9 +93,9 @@
 <div class="stats inner"><div><b id="total">0</b><small>Total</small></div><div><b id="reviews">0</b><small>Reviews</small></div><div><b id="important">0</b><small>Important</small></div><div><b id="sessions">0</b><small>Sessions</small></div></div>
 </div></section>
 
-<footer>RecallDeck V4.1 • Local data • No account required</footer>
+<footer>RecallDeck V4.2 • Local data • No account required</footer>
 </main>
 <div id="toast"></div>
-<script src="app.js?v=4.1"></script>
+<script src="app.js?v=4.2"></script>
 </body>
 </html>

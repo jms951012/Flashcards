@@ -5,7 +5,23 @@ function save(){localStorage.setItem(KEY,JSON.stringify(cards));stats();list()}
 function stats(){let r=cards.reduce((a,c)=>a+(c.reviews||0),0),g=cards.reduce((a,c)=>a+(c.good||0),0),m=cards.length?Math.round(cards.reduce((a,c)=>a+Math.min(100,(c.level||0)*20),0)/cards.length):0;$("due").textContent=cards.filter(due).length;$("learned").textContent=cards.filter(c=>(c.level||0)>=4).length;$("accuracy").textContent=r?Math.round(g/r*100)+"%":"0%";$("total").textContent=cards.length;$("reviews").textContent=r;$("important").textContent=cards.filter(c=>c.star).length;$("sessions").textContent=sessions;$("mastery").textContent=m+"%";$("bar").style.width=m+"%"}
 function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function start(){let d=cards.filter(due);if(!d.length){$("studyArea").classList.add("hidden");$("empty").classList.remove("hidden");return}let v=$("limit").value,n=v==="all"?d.length:v==="custom"?Math.max(1,+$("customLimit").value||1):+v;queue=($("random").checked?shuffle(d):d).slice(0,Math.min(n,d.length));pos=0;$("sessionInfo").classList.remove("hidden");next()}
-function next(){if(pos>=queue.length){sessions++;localStorage.setItem("recalldeck-sessions",sessions);stats();toast("Session complete 🎉");$("sessionInfo").classList.add("hidden");return}cur=queue[pos];rev=false;$("sessionPos").textContent=(pos+1)+" / "+queue.length;$("sessionMode").textContent=$("random").checked?"🔀 Random":"Sequential";$("front").textContent=cur.q;$("back").textContent=cur.a;$("front").classList.remove("hidden");$("back").classList.add("hidden");$("ratings").classList.add("hidden");$("hint").textContent="Tap to reveal";$("tag").textContent=cur.star?"⭐ IMPORTANT":cur.tag||cur.deck;$("count").textContent=cards.filter(due).length+" due";$("studyArea").classList.remove("hidden");$("empty").classList.add("hidden")}
+function next(){
+  if(pos>=queue.length){
+    sessions++;localStorage.setItem("recalldeck-sessions",sessions);stats();
+    $("sessionInfo").classList.add("hidden");$("studyArea").classList.add("hidden");
+    $("empty").classList.remove("hidden");
+    $("empty").innerHTML="<h2>Session complete 🎉</h2><p>You finished "+queue.length+" cards.</p>";
+    return;
+  }
+  cur=queue[pos];rev=false;
+  $("sessionPos").textContent=(pos+1)+" / "+queue.length;
+  $("sessionMode").textContent=$("random").checked?"🔀 Random":"Sequential";
+  $("front").textContent=cur.q;
+  $("back").textContent=cleanMeaning(cur);
+  $("front").classList.remove("hidden");$("back").classList.add("hidden");
+  $("studyArea").classList.remove("hidden");$("empty").classList.add("hidden");
+  $("prevCard").disabled=pos===0;
+}
 function days(n){let d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
 function rate(k){let c=cur;c.reviews=(c.reviews||0)+1;c.good=(c.good||0)+(k==="again"?0:1);c.level=Math.max(0,(c.level||0)+(k==="again"?-1:k==="hard"?0:k==="good"?1:2));c.next=k==="again"?new Date(Date.now()+600000).toISOString().slice(0,16):days({hard:1,good:3,easy:7}[k]);save();pos++;next()}
 function add(){let q=$("q").value.trim(),a=$("a").value.trim();if(!q||!a){alert("Enter both question and answer.");return}cards.push({id:newId(),q,a,deck:$("deck").value.trim()||"General",tag:$("tagInput").value.trim(),star:$("star").checked,level:0,reviews:0,good:0,next:today()});$("q").value="";$("a").value="";$("tagInput").value="";$("star").checked=false;save();go("study");toast("Card added")}
@@ -71,7 +87,9 @@ function extractItems(raw){
   return [raw];
 }
 $("limit").onchange=()=>$("customLimit").classList.toggle("hidden",$("limit").value!=="custom");$("startSession").onclick=start;document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.tab));$("goAdd").onclick=()=>go("add");$("saveCard").onclick=add;$("search").oninput=list;
-$("flash").onclick=()=>{if(!cur)return;rev=!rev;$("front").classList.toggle("hidden",rev);$("back").classList.toggle("hidden",!rev);$("ratings").classList.toggle("hidden",!rev);$("hint").textContent=rev?"Tap to hide":"Tap to reveal"};document.querySelectorAll(".ratings button").forEach(b=>b.onclick=()=>rate(b.dataset.r));
+$("flash").onclick=()=>{if(!cur)return;rev=!rev;$("front").classList.toggle("hidden",rev);$("back").classList.toggle("hidden",!rev)};
+$("prevCard").onclick=()=>{if(pos>0){pos--;next()}};
+$("nextCard").onclick=()=>{if(pos<queue.length-1){pos++;next()}else{pos=queue.length;next()}};
 $("exportBtn").onclick=()=>{let b=new Blob([JSON.stringify(cards,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="recalldeck-"+today()+".json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);$("exportInfo").textContent=cards.length+" cards exported.";toast("JSON backup downloaded")};
 $("importFile").onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let raw=JSON.parse(r.result),arr=extractItems(raw);if(!arr.length)throw Error("No card items were found in this JSON.");let valid=arr.map(norm).filter(Boolean);pending=valid;$("importPreview").textContent=`Found ${arr.length} items. Valid flashcards: ${valid.length}. ${arr.length-valid.length} skipped.`;$("importBtn").disabled=!valid.length}catch(e){pending=null;$("importPreview").textContent="Invalid JSON: "+e.message;$("importBtn").disabled=true}};r.readAsText(f)};
 $("importBtn").onclick=()=>{if(!pending||!pending.length){toast("No valid flashcards to import. Check the JSON format.");return;}if($("importMode").value==="replace")cards=pending;else{let seen=new Set(cards.map(c=>(c.q+"\n"+c.a).toLowerCase()));let n=0;pending.forEach(c=>{let k=(c.q+"\n"+c.a).toLowerCase();if(!seen.has(k)){seen.add(k);cards.push(c);n++}});toast(n+" new cards imported")}if($("importMode").value==="replace")toast(pending.length+" cards imported");pending=null;$("importFile").value="";$("importBtn").disabled=true;$("importPreview").textContent="No file selected.";save();go("cards")};
