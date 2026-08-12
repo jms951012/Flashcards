@@ -1,0 +1,1 @@
+RecallDeck V2: practice-count selector (5/10/20/50/all due), Random order toggle, sequential order, spaced repetition, search, decks/tags, important cards, progress and offline PWA. Upload files to GitHub Pages root.
