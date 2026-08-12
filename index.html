@@ -1,19 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css"><title>RecallDeck V3.1</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.json?v=4">
+<link rel="stylesheet" href="styles.css?v=4">
+<title>RecallDeck V4</title>
 </head>
-<body><main>
-<header><h1>RecallDeck</h1><p>Remember, don't just reread.</p></header>
+<body>
+<main>
+<header>
+  <div class="brand"><div><h1>RecallDeck</h1><p>Remember, don't just reread.</p></div><span class="version">V4</span></div>
+</header>
 
 <section class="stats">
-<div><b id="due">0</b><small>Due</small></div><div><b id="learned">0</b><small>Learned</small></div>
-<div><b id="streak">0</b><small>Streak</small></div><div><b id="accuracy">0%</b><small>Accuracy</small></div>
+<div><b id="due">0</b><small>Due</small></div>
+<div><b id="learned">0</b><small>Learned</small></div>
+<div><b id="streak">0</b><small>Streak</small></div>
+<div><b id="accuracy">0%</b><small>Accuracy</small></div>
 </section>
 
-<nav>
+<nav id="nav">
 <button class="active" data-tab="study">🧠 Study</button>
 <button data-tab="cards">📚 Cards</button>
 <button data-tab="add">＋ Add</button>
@@ -35,41 +43,65 @@
 <div class="meta"><span id="tag">CARD</span><span id="count"></span></div>
 <div id="flash" class="flash"><div id="front"></div><div id="back" class="hidden"></div><small id="hint">Tap to reveal</small></div>
 <div id="ratings" class="ratings hidden">
-<button data-r="again">Again<small>10 min</small></button><button data-r="hard">Hard<small>1 day</small></button>
-<button data-r="good">Good<small>3 days</small></button><button data-r="easy">Easy<small>7 days</small></button>
-</div></div></section>
+<button data-r="again">Again<small>10 min</small></button>
+<button data-r="hard">Hard<small>1 day</small></button>
+<button data-r="good">Good<small>3 days</small></button>
+<button data-r="easy">Easy<small>7 days</small></button>
+</div>
+</div>
+</section>
 
 <section id="cards" class="page hidden">
-<div class="head"><h2>My Cards</h2><input id="search" placeholder="Search cards"></div><div id="list"></div><p id="none" class="empty">No cards yet.</p>
+<div class="head"><h2>My Cards</h2><input id="search" placeholder="Search cards"></div>
+<div id="list"></div><p id="none" class="empty">No cards yet.</p>
 </section>
 
 <section id="add" class="page hidden">
-<div class="panel"><h2>Create Flashcard</h2>
-<p class="notice">✍️ Manual adding — or use <b>📥 Import JSON</b> above for bulk cards.</p>
+<div class="panel"><h2>✍️ Manual Add</h2>
+<p class="notice">You can add cards manually here. For bulk cards, use <b>📥 Import JSON</b>.</p>
 <label>Front / Question<input id="q" placeholder="Question"></label>
 <label>Back / Answer<textarea id="a" placeholder="Answer"></textarea></label>
 <div class="two"><label>Deck<input id="deck" value="General"></label><label>Tag<input id="tagInput" placeholder="Polity, English..."></label></div>
-<label><input type="checkbox" id="star"> ⭐ Important</label><button id="saveCard" class="primary">Save Card</button>
+<label><input type="checkbox" id="star"> ⭐ Important</label>
+<button id="saveCard" class="primary">Save Card</button>
 </div></section>
 
 <section id="import" class="page hidden">
-<div class="panel"><h2>📥 Import JSON</h2>
-<p>Bulk-import your flashcards here. No server or account is required.</p>
-<label>Select JSON file<input id="importFile" type="file" accept=".json,application/json"></label>
+<div class="panel importPanel">
+<h2>📥 Import JSON</h2>
+<div class="bigDrop">
+  <div class="dropIcon">📄</div>
+  <h3>Import your flashcard JSON</h3>
+  <p>Select a <b>.json</b> file containing your cards.</p>
+  <input id="importFile" type="file" accept=".json,application/json">
+  <label for="importFile" class="fileButton">Choose JSON File</label>
+</div>
 <div id="importPreview" class="preview">No file selected.</div>
 <label>Import mode<select id="importMode"><option value="append">Append — keep existing cards</option><option value="replace">Replace — delete existing cards</option></select></label>
-<button id="importBtn" class="primary" disabled>Import cards</button>
-<details><summary>Example JSON</summary><pre>[
+<button id="importBtn" class="primary" disabled>Import Cards</button>
+<details><summary>Supported JSON format</summary>
+<pre>[
   {"front":"What is federalism?","back":"Division of power between levels of government.","deck":"Polity","tag":"Constitution","important":true}
-]</pre></details>
+]</pre>
+</details>
 </div></section>
 
 <section id="export" class="page hidden">
-<div class="panel"><h2>📤 Export JSON</h2><p>Download a complete backup of your flashcards.</p>
+<div class="panel"><h2>📤 Export JSON</h2>
+<p>Download a complete backup of all your flashcards.</p>
 <button id="exportBtn" class="primary">Download JSON Backup</button>
-<p id="exportInfo"></p></div></section>
-
-<section id="progress" class="page hidden"><div class="panel"><h2>Progress</h2><p>Mastery <b id="mastery">0%</b></p><div class="bar"><i id="bar"></i></div>
-<div class="stats"><div><b id="total">0</b><small>Total</small></div><div><b id="reviews">0</b><small>Reviews</small></div><div><b id="important">0</b><small>Important</small></div><div><b id="sessions">0</b><small>Sessions</small></div></div>
+<p id="exportInfo"></p>
 </div></section>
-</main><div id="toast"></div><script src="app.js"></script></body></html>
+
+<section id="progress" class="page hidden">
+<div class="panel"><h2>📊 Progress</h2><p>Mastery <b id="mastery">0%</b></p>
+<div class="bar"><i id="bar"></i></div>
+<div class="stats inner"><div><b id="total">0</b><small>Total</small></div><div><b id="reviews">0</b><small>Reviews</small></div><div><b id="important">0</b><small>Important</small></div><div><b id="sessions">0</b><small>Sessions</small></div></div>
+</div></section>
+
+<footer>RecallDeck V4 • Local data • No account required</footer>
+</main>
+<div id="toast"></div>
+<script src="app.js?v=4"></script>
+</body>
+</html>

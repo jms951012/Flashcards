@@ -1,18 +1,25 @@
-RECALLDECK V3.1
+RECALLDECK V4 — CACHE-SAFE BUILD
 
-This build has clearly visible navigation:
-🧠 Study | 📚 Cards | ＋ Add | 📥 Import JSON | 📤 Export JSON | 📊 Progress
-
-Manual cards and JSON bulk import are separate features.
+WHY V4:
+The screenshot showing only Study/Cards/Add/Progress means the browser is serving the OLD app, not the new code. This version intentionally removes service-worker registration and includes reset.html to unregister old workers and clear caches.
 
 DEPLOY:
-1. Delete/replace the old index.html, styles.css, app.js, manifest.json and sw.js in your GitHub Pages repository.
-2. Upload these five files from this ZIP.
-3. Commit/push.
-4. Open the GitHub Pages URL in Chrome.
-5. If the old UI still appears, Chrome is showing the previously installed PWA/cache: open the URL in a normal browser tab, hard refresh, then reopen/install the PWA.
+1. Extract this ZIP.
+2. Replace the files in your GitHub Pages repository with ALL files from this folder.
+3. Commit/push and wait for GitHub Pages to deploy.
+4. IMPORTANT: open:
+   https://YOURUSERNAME.github.io/YOURREPO/reset.html
+   using the same URL/path as your app.
+5. It will unregister old service workers and clear browser caches WITHOUT deleting your flashcards from localStorage.
+6. It redirects to the new app.
+7. You should now see:
+   Study | Cards | + Add | IMPORT JSON | EXPORT JSON | Progress
 
-JSON example:
+If the PWA icon still opens the old screen, remove the old installed PWA shortcut and open the website once in Chrome after the reset. Then install the new PWA.
+
+JSON:
 [
- {"front":"What is federalism?","back":"Division of power between levels of government.","deck":"Polity","tag":"Constitution","important":true}
+  {"front":"What is federalism?","back":"Division of power between levels of government.","deck":"Polity","tag":"Constitution","important":true}
 ]
+
+Manual adding and JSON bulk import are both supported.

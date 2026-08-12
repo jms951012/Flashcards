@@ -1,0 +1,14 @@
+<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><title>RecallDeck Reset</title>
+<style>body{font-family:system-ui;text-align:center;padding:40px;background:#f3f4f6}button{padding:14px 22px;border:0;border-radius:9px;background:#2563eb;color:#fff;font-weight:800}</style>
+<h2>RecallDeck cache reset</h2><p id="m">Removing the old PWA cache…</p><button onclick="reset()">Reset again</button>
+<script>
+async function reset(){
+try{
+if("serviceWorker" in navigator){let r=await navigator.serviceWorker.getRegistrations();await Promise.all(r.map(x=>x.unregister()));}
+if("caches" in window){let k=await caches.keys();await Promise.all(k.map(x=>caches.delete(x)));}
+document.getElementById("m").textContent="Done. Opening the new RecallDeck…";
+setTimeout(()=>location.href="./?v=4",700);
+}catch(e){document.getElementById("m").textContent="Please press Reset again: "+e}
+}
+reset();
+</script>
