@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#111827">
-<link rel="manifest" href="manifest.json?v=4.2">
-<link rel="stylesheet" href="styles.css?v=4.2">
-<title>RecallDeck V4.2</title>
+<link rel="manifest" href="manifest.json?v=4.3">
+<link rel="stylesheet" href="styles.css?v=4.3">
+<title>RecallDeck V4.3</title>
 </head>
 <body>
 <main>
 <header>
-  <div class="brand"><div><h1>RecallDeck</h1><p>Remember, don't just reread.</p></div><span class="version">V4.1</span></div>
+  <div class="brand"><div><h1>RecallDeck</h1><p>Remember, don't just reread.</p></div><span class="version">V4.3</span></div>
 </header>
 
 <section class="stats">
@@ -45,7 +45,7 @@
 <div class="cardNav"><button id="prevCard">← Previous</button><button id="nextCard" class="primary">Next →</button></div>
 </div>
 </section>
-<section id="cards"<section id="cards" class="page hidden">
+<section id="cards" class="page hidden">
 <div class="head"><h2>My Cards</h2><input id="search" placeholder="Search cards"></div>
 <div id="list"></div><p id="none" class="empty">No cards yet.</p>
 </section>
@@ -67,7 +67,7 @@
   <div class="dropIcon">📄</div>
   <h3>Import your flashcard JSON</h3>
   <p>Select a <b>.json</b> file containing your cards.</p>
-  <input id="importFile" type="file" accept=".json,application/json">
+  <input id="importFile" type="file" accept=".json,application/json,text/json" aria-label="Choose JSON file">
   <label for="importFile" class="fileButton">Choose JSON File</label>
 </div>
 <div id="importPreview" class="preview">No file selected.</div>
@@ -93,9 +93,9 @@
 <div class="stats inner"><div><b id="total">0</b><small>Total</small></div><div><b id="reviews">0</b><small>Reviews</small></div><div><b id="important">0</b><small>Important</small></div><div><b id="sessions">0</b><small>Sessions</small></div></div>
 </div></section>
 
-<footer>RecallDeck V4.2 • Local data • No account required</footer>
+<footer>RecallDeck V4.3 • Local data • No account required</footer>
 </main>
 <div id="toast"></div>
-<script src="app.js?v=4.2"></script>
+<script src="app.js?v=4.3"></script>
 </body>
 </html>

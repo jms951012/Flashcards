@@ -8,3 +8,8 @@
 .cardNav .primary{background:#2563eb;color:#fff}
 .cardNav button:disabled{opacity:.45}
 @media(max-width:600px){.vocabFlash{height:300px}.vocabFlash .word{font-size:25px}.vocabFlash .meaning{font-size:20px;line-height:1.55}}
+
+.bigDrop{position:relative}
+.bigDrop input[type=file]{display:block!important;position:absolute!important;inset:0;width:100%!important;height:100%!important;opacity:0!important;z-index:3!important;cursor:pointer}
+.bigDrop .fileButton{position:relative;z-index:2;pointer-events:none}
+.vocabFlash{user-select:none;-webkit-user-select:none}

@@ -1,11 +1,17 @@
-RECALLDECK V4.2 — CLEAN VOCABULARY STUDY MODE
+RECALLDECK V4.3 — IMPORT + CARD REVEAL FIX
 
-- Study screen no longer shows tags/deck metadata.
-- Meaning display is normalized to English / Marathi / Hindi labels.
-- Removed Again / Hard / Good / Easy study buttons.
-- Added Previous and Next navigation.
-- Tap card to reveal/hide meanings.
-- Practice count and Random order remain.
-- JSON import/export remains.
-- Manual add remains.
-- If old UI persists, open reset.html once after deployment.
+Fixed:
+- Android JSON file selection/import event.
+- App startup crash caused by the old missing #flash element.
+- Tap vocabulary card to reveal/hide meanings.
+- Previous / Next navigation.
+- Clean English / Marathi / Hindi display.
+- Vocabulary JSON fields: word, easy_english, marathi, hindi.
+- JSON front/back and question/answer formats.
+- Tags/decks are not shown on the study card.
+
+DEPLOY:
+1. Replace ALL repository files with this ZIP.
+2. Open /reset.html once.
+3. Let it finish and open RecallDeck.
+4. Confirm V4.3 is shown.

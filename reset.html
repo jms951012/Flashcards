@@ -7,7 +7,7 @@ try{
 if("serviceWorker" in navigator){let r=await navigator.serviceWorker.getRegistrations();await Promise.all(r.map(x=>x.unregister()));}
 if("caches" in window){let k=await caches.keys();await Promise.all(k.map(x=>caches.delete(x)));}
 document.getElementById("m").textContent="Done. Opening the new RecallDeck…";
-setTimeout(()=>location.href="./?v=4",700);
+setTimeout(()=>location.href="./?v=4.3",700);
 }catch(e){document.getElementById("m").textContent="Please press Reset again: "+e}
 }
 reset();
